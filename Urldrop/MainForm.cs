@@ -72,13 +72,31 @@ namespace Urldrop
         }
 
         /// <summary>
-        /// Hndles the open tool strip menu item click event.
+        /// Handles the open tool strip menu item click event.
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
         private void OnOpenToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // TODO Prepare dialog properties [Move to Mainform.Designer]
+            this.openFileDialog.Title = "Open file(s) with URLs";
+            this.openFileDialog.Multiselect = true;
+            this.openFileDialog.Filter = "Supported Files|*.txt;*.htm;*.html|TXT Files|*.txt|HTML Files|*.htm;*.html|All files (*.*)|*.*";
+
+            // Show open file dialog
+            if (this.openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    // Populate by opened file(s)
+                    this.PopulateByFile(new List<string>(this.openFileDialog.FileNames));
+                }
+                catch (Exception exception)
+                {
+                    // Inform user
+                    MessageBox.Show($"Error when opening \"{Path.GetFileName(this.openFileDialog.FileName)}\":{Environment.NewLine}{exception.Message}", "Open file error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         /// <summary>
@@ -103,7 +121,7 @@ namespace Urldrop
                 }
 
                 // Inform user
-                MessageBox.Show($"Saved file to \"{Path.GetFileName(this.saveFileDialog.FileName)}\"", "Settings file saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Saved file to \"{Path.GetFileName(this.saveFileDialog.FileName)}\"", "URL file", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
