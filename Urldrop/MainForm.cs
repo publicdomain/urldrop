@@ -8,6 +8,7 @@ namespace Urldrop
     // Directives
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Drawing;
     using System.IO;
     using System.Linq;
@@ -182,7 +183,8 @@ namespace Urldrop
         /// <param name="e">Event arguments.</param>
         private void OnMoreReleasesPublicDomainGiftcomToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Open current website
+            Process.Start("https://publicdomaingift.com");
         }
 
         /// <summary>
