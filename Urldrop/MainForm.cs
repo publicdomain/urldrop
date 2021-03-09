@@ -199,6 +199,37 @@ namespace Urldrop
         }
 
         /// <summary>
+        /// Processes the text file.
+        /// </summary>
+        /// <returns>The link list.</returns>
+        /// <param name="filePath">File path.</param>
+        private List<string> ProcessTextFile(string filePath)
+        {
+            // Set link list 
+            var linkList = new List<string>();
+
+            // Declare trimmed line
+            string trimmedline = string.Empty;
+
+            // Iterate lines
+            foreach (string line in File.ReadAllLines(filePath))
+            {
+                // Set trimmed line
+                trimmedline = line.Trim();
+
+                // Validate current line
+                if (this.ValidateUri(trimmedline))
+                {
+                    // Add valid URI
+                    linkList.Add(trimmedline);
+                }
+            }
+
+            // Return valid link list
+            return linkList;
+        }
+
+        /// <summary>
         /// Processes the html file.
         /// </summary>
         /// <returns>The links list.</returns>
