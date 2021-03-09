@@ -9,6 +9,7 @@ namespace Urldrop
     using System;
     using System.Collections.Generic;
     using System.Drawing;
+    using System.IO;
     using System.Windows.Forms;
 
     /// <summary>
@@ -173,6 +174,40 @@ namespace Urldrop
         private void OnMultiselectToolStripMenuItemDropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             // TODO Add code
+        }
+
+        /// <summary>
+        /// TODO Proceses the URL file. [May yconsider returning string. Returns list for uniformity purposes with TXT and HTML processing functions]
+        /// </summary>
+        /// <returns>The extracted URL.</returns>
+        /// <param name="filePath">File path.</param>
+        private List<string> ProcesUrlFile(string filePath)
+        {
+            // Set link list 
+            var linkList = new List<string>();
+
+            // Extracted link
+            var link = string.Empty;
+
+            // TODO Iterate lines [Can be done via indexOf]
+            foreach (var line in File.ReadAllLines(filePath))
+            {
+                // Check for "URL="
+                if (line.StartsWith("URL=", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    // Extract link
+                    link = line.Split(new char[] { '=' })[1];
+
+                    // Add to link list
+                    linkList.Add(link);
+
+                    // Halt flow
+                    break;
+                }
+            }
+
+            // Return extracted link list
+            return linkList;
         }
     }
 }
