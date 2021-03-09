@@ -8,8 +8,11 @@ namespace Urldrop
     // Directives
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Drawing;
     using System.IO;
+    using System.Linq;
+    using System.Reflection;
     using System.Windows.Forms;
     using HtmlAgilityPack;
 
@@ -19,12 +22,43 @@ namespace Urldrop
     public partial class MainForm : Form
     {
         /// <summary>
+        /// Gets or sets the associated icon.
+        /// </summary>
+        /// <value>The associated icon.</value>
+        private Icon associatedIcon = null;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="T:Urldrop.MainForm"/> class.
         /// </summary>
         public MainForm()
         {
             // The InitializeComponent() call is required for Windows Forms designer support.
             this.InitializeComponent();
+
+            /* Set icons */
+
+            // Set associated icon from exe file
+            this.associatedIcon = Icon.ExtractAssociatedIcon(typeof(MainForm).GetTypeInfo().Assembly.Location);
+
+            // Set public domain weekly tool strip menu item image
+            this.moreReleasesPublicDomainGiftcomToolStripMenuItem.Image = this.associatedIcon.ToBitmap();
+
+            /* Configure */
+
+            /* Load */
+
+            // Check for passed files
+            if (Environment.GetCommandLineArgs().Length > 1)
+            {
+                // Set file list 
+                var fileList = Environment.GetCommandLineArgs().ToList();
+
+                // Remove first item (Executable)
+                fileList.RemoveAt(0);
+
+                // files
+                this.PopulateByFile(fileList);
+            }
         }
 
         /// <summary>
@@ -175,6 +209,67 @@ namespace Urldrop
         private void OnMultiselectToolStripMenuItemDropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             // TODO Add code
+        }
+
+        /// <summary>
+        /// Populates the URL list by file.
+        /// </summary>
+        /// <param name="filePathList">File path list.</param>
+        private void PopulateByFile(List<string> filePathList)
+        {
+            try
+            {
+                // Declare link list
+                var linkList = new List<string>();
+
+                // Iterate dropped files
+                foreach (string droppedFile in filePathList)
+                {
+                    // Process extensions
+                    switch (Path.GetExtension(droppedFile).ToLowerInvariant())
+                    {
+                        // TEXT
+                        case ".txt":
+
+                            // Add valid links to list
+                            linkList.AddRange(this.ProcessTextFile(droppedFile));
+
+                            // Halt flow
+                            break;
+
+                        // HTML
+                        case ".htm":
+                        case ".html":
+
+                            // Add valid links to list
+                            linkList.AddRange(this.ProcessHtmlFile(droppedFile));
+
+                            // Halt flow
+                            break;
+
+                        // URL
+                        case ".url":
+
+                            // Add valid links to list
+                            linkList.AddRange(this.ProcesUrlFile(droppedFile));
+
+                            // Halt flow
+                            break;
+                    }
+                }
+
+                // Add links
+                foreach (var link in linkList)
+                {
+                    // Append to list box
+                    this.urlListBox.Items.Add(link);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Inform user
+                MessageBox.Show($"Could not finish operation:{Environment.NewLine}{ex.Message}", "Populate by file(s) error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /// <summary>
