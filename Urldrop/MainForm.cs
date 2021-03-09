@@ -173,7 +173,24 @@ namespace Urldrop
         /// <param name="e">Event arguments.</param>
         private void OnOptionsToolStripMenuItemDropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            // TODO Add code
+            // Prevent multiselect checking
+            if (e.ClickedItem == this.multiselectToolStripMenuItem)
+            {
+                // Halt flow
+                return;
+            }
+
+            // Set tool strip menu item
+            ToolStripMenuItem toolStripMenuItem = (ToolStripMenuItem)e.ClickedItem;
+
+            // Toggle checked
+            toolStripMenuItem.Checked = !toolStripMenuItem.Checked;
+
+            // Set topmost
+            this.TopMost = this.alwaysOnTopToolStripMenuItem.Checked;
+
+            // Set sorted
+            this.urlListBox.Sorted = this.sortedListToolStripMenuItem.Checked;
         }
 
         /// <summary>
