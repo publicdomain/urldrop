@@ -80,15 +80,30 @@ namespace Urldrop
         {
             // TODO Add code
         }
-
         /// <summary>
-        /// Hndles the save tool strip menu item click event.
+        /// Handles the save tool strip menu item click event.
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
         private void OnSaveToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Open save file dialog
+            if (this.urlListBox.Items.Count > 0 && this.saveFileDialog.ShowDialog() == DialogResult.OK && this.saveFileDialog.FileName.Length > 0)
+            {
+                try
+                {
+                    // Save URL list to file
+                    File.WriteAllText(this.saveFileDialog.FileName, string.Join(Environment.NewLine, this.urlListBox.Items.Cast<string>().ToList()));
+                }
+                catch (Exception exception)
+                {
+                    // Inform user
+                    MessageBox.Show($"Error when saving to \"{Path.GetFileName(this.saveFileDialog.FileName)}\":{Environment.NewLine}{exception.Message}", "Save file error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                // Inform user
+                MessageBox.Show($"Saved file to \"{Path.GetFileName(this.saveFileDialog.FileName)}\"", "Settings file saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         /// <summary>
