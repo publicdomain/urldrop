@@ -11,6 +11,7 @@ namespace Urldrop
     using System.Drawing;
     using System.IO;
     using System.Windows.Forms;
+    using HtmlAgilityPack;
 
     /// <summary>
     /// Description of MainForm.
@@ -175,6 +176,28 @@ namespace Urldrop
         {
             // TODO Add code
         }
+
+        /// <summary>
+        /// Validates the URI.
+        /// </summary>
+        /// <returns><c>true</c>, if URI was validated, <c>false</c> otherwise.</returns>
+        /// <param name="possibleUri">Possible URI.</param>
+        private bool ValidateUri(string possibleUri)
+        {
+            // Return TryCreate result
+            return Uri.TryCreate(possibleUri, UriKind.Absolute, out var uri) &&
+                            (uri.Scheme == Uri.UriSchemeHttps ||
+                            uri.Scheme == Uri.UriSchemeHttp ||
+                            uri.Scheme == Uri.UriSchemeFtp ||
+                            uri.Scheme == Uri.UriSchemeMailto ||
+                            uri.Scheme == Uri.UriSchemeFile ||
+                            uri.Scheme == Uri.UriSchemeNews ||
+                            uri.Scheme == Uri.UriSchemeNntp ||
+                            uri.Scheme == Uri.UriSchemeGopher ||
+                            uri.Scheme == Uri.UriSchemeNetTcp ||
+                            uri.Scheme == Uri.UriSchemeNetPipe);
+        }
+
 
         /// <summary>
         /// TODO Proceses the URL file. [May yconsider returning string. Returns list for uniformity purposes with TXT and HTML processing functions]
