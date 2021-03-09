@@ -415,7 +415,8 @@ namespace Urldrop
         /// <param name="e">Event arguments.</param>
         private void OnUrlListBoxDragDrop(object sender, DragEventArgs e)
         {
-            // TODO Add code
+            // Populate URL list by dropped files
+            this.PopulateByFile(new List<string>((IEnumerable<string>)e.Data.GetData(DataFormats.FileDrop)));
         }
 
         /// <summary>
