@@ -198,6 +198,40 @@ namespace Urldrop
                             uri.Scheme == Uri.UriSchemeNetPipe);
         }
 
+        /// <summary>
+        /// Processes the html file.
+        /// </summary>
+        /// <returns>The links list.</returns>
+        /// <param name="filePath">File path.</param>
+        private List<string> ProcessHtmlFile(string filePath)
+        {
+            // Set document
+            HtmlAgilityPack.HtmlDocument htmlDocument = new HtmlAgilityPack.HtmlDocument();
+
+            // Load current dropped file
+            htmlDocument.Load(filePath);
+
+            // Set link list 
+            var linkList = new List<string>();
+
+            // Extract links
+            foreach (HtmlNode link in htmlDocument.DocumentNode.SelectNodes("//a[@href]"))
+            {
+                // Set attribute
+                HtmlAttribute htmlAttribute = link.Attributes["href"];
+
+                // Check
+                if (htmlAttribute.Value.Contains("a") && this.ValidateUri(htmlAttribute.Value))
+                {
+                    // Add to link list 
+                    linkList.Add(htmlAttribute.Value);
+                }
+            }
+
+            // Return validlink list
+            return linkList;
+        }
+
 
         /// <summary>
         /// TODO Proceses the URL file. [May yconsider returning string. Returns list for uniformity purposes with TXT and HTML processing functions]
