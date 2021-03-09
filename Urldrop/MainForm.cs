@@ -80,6 +80,7 @@ namespace Urldrop
         {
             // TODO Add code
         }
+
         /// <summary>
         /// Handles the save tool strip menu item click event.
         /// </summary>
@@ -373,7 +374,6 @@ namespace Urldrop
             return linkList;
         }
 
-
         /// <summary>
         /// TODO Proceses the URL file. [May yconsider returning string. Returns list for uniformity purposes with TXT and HTML processing functions]
         /// </summary>
@@ -406,6 +406,27 @@ namespace Urldrop
 
             // Return extracted link list
             return linkList;
+        }
+
+        /// <summary>
+        /// Handles the URL list box drag drop event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnUrlListBoxDragDrop(object sender, DragEventArgs e)
+        {
+            // TODO Add code
+        }
+
+        /// <summary>
+        /// Handles the URL list box drag enter event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnUrlListBoxDragEnter(object sender, DragEventArgs e)
+        {
+            // Set effect
+            e.Effect = DragDropEffects.Copy;
         }
     }
 }
