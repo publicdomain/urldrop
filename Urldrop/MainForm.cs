@@ -8,7 +8,6 @@ namespace Urldrop
     // Directives
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.Drawing;
     using System.IO;
     using System.Linq;
@@ -68,7 +67,7 @@ namespace Urldrop
         /// <param name="e">Event arguments.</param>
         private void OnNewToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // TODO add code
         }
 
         /// <summary>
@@ -132,7 +131,8 @@ namespace Urldrop
         /// <param name="e">Event arguments.</param>
         private void OnExitToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Close program
+            this.Close();
         }
 
         /// <summary>
