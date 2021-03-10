@@ -90,7 +90,7 @@ namespace PublicDomain
             this.licenseInfoLabel.Name = "licenseInfoLabel";
             this.licenseInfoLabel.Size = new System.Drawing.Size(88, 20);
             this.licenseInfoLabel.TabIndex = 2;
-            this.licenseInfoLabel.Text = "License info:";
+            this.licenseInfoLabel.Text = "License & info:";
             this.licenseInfoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // moduleLicenseRichTextBox
