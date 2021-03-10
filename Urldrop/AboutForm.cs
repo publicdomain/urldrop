@@ -17,7 +17,7 @@ namespace PublicDomain
     public partial class AboutForm : Form
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AboutForm"/> class.
+        /// Initializes a new instance of the <see cref="T:PublicDomain.AboutForm"/> class.
         /// </summary>
         /// <param name="formTitle">Form title.</param>
         /// <param name="moduleTitle">Module title.</param>

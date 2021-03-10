@@ -17,6 +17,7 @@ namespace Urldrop
     using System.Windows.Forms;
     using HtmlAgilityPack;
     using Microsoft.VisualBasic;
+    using PublicDomain;
 
     /// <summary>
     /// Description of MainForm.
@@ -303,7 +304,52 @@ namespace Urldrop
         /// <param name="e">Event arguments.</param>
         private void OnAboutToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Set license text
+            var licenseText = $"CC0 1.0 Universal (CC0 1.0) - Public Domain Dedication{Environment.NewLine}" +
+                $"https://creativecommons.org/publicdomain/zero/1.0/legalcode{Environment.NewLine}{Environment.NewLine}" +
+                $"Libraries and icons have separate licenses.{Environment.NewLine}{Environment.NewLine}" +
+                $"Target icon by madartzgraphics - Pixabay License{Environment.NewLine}" +
+                $"https://pixabay.com/vectors/target-arrow-bulls-eye-bullseye-2070972/{Environment.NewLine}{Environment.NewLine}" +
+                $"HtmlAgilityPack by ZZZ Projects - MIT License{Environment.NewLine}" +
+                $"https://github.com/zzzprojects/html-agility-pack/{Environment.NewLine}{Environment.NewLine}" +
+                $"Patreon icon used according to published brand guidelines{Environment.NewLine}" +
+                $"https://www.patreon.com/brand{Environment.NewLine}{Environment.NewLine}" +
+                $"GitHub mark icon used according to published logos and usage guidelines{Environment.NewLine}" +
+                $"https://github.com/logos{Environment.NewLine}{Environment.NewLine}" +
+                $"DonationCoder icon used with permission{Environment.NewLine}" +
+                $"https://www.donationcoder.com/forum/index.php?topic=48718{Environment.NewLine}{Environment.NewLine}" +
+                $"PublicDomain icon is based on the following source images:{Environment.NewLine}{Environment.NewLine}" +
+                $"Bitcoin by GDJ - Pixabay License{Environment.NewLine}" +
+                $"https://pixabay.com/vectors/bitcoin-digital-currency-4130319/{Environment.NewLine}{Environment.NewLine}" +
+                $"Letter P by ArtsyBee - Pixabay License{Environment.NewLine}" +
+                $"https://pixabay.com/illustrations/p-glamour-gold-lights-2790632/{Environment.NewLine}{Environment.NewLine}" +
+                $"Letter D by ArtsyBee - Pixabay License{Environment.NewLine}" +
+                $"https://pixabay.com/illustrations/d-glamour-gold-lights-2790573/{Environment.NewLine}{Environment.NewLine}";
+
+            // Set title
+            string programTitle = typeof(MainForm).GetTypeInfo().Assembly.GetCustomAttribute<AssemblyTitleAttribute>().Title;
+
+            // Set version for generating semantic version 
+            Version version = typeof(MainForm).GetTypeInfo().Assembly.GetName().Version;
+
+            // Set about form
+            var aboutForm = new AboutForm(
+                $"About {programTitle}",
+                $"{programTitle} {version.Major}.{version.Minor}.{version.Build}",
+                $"Made for: nkormanik{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #69, Week #10 @ March 10, 2021",
+                licenseText,
+                this.Icon.ToBitmap())
+
+            {
+                // Set about form icon
+                Icon = this.associatedIcon,
+
+                // Set topmost
+                TopMost = this.alwaysOnTopToolStripMenuItem.Checked
+            };
+
+            // Show about form
+            aboutForm.ShowDialog();
         }
 
         /// <summary>
