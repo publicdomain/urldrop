@@ -54,10 +54,6 @@ namespace Urldrop
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.alwaysOnTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortedListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.multiselectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.oneclickToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.extendedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.noneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moreReleasesPublicDomainGiftcomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.originalThreadDonationCodercomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,6 +73,11 @@ namespace Urldrop
             this.deleteButton = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.selectionmodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.noneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.oneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.multiSimpleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.multiExtendedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             this.mainStatusStrip.SuspendLayout();
             this.mainTableLayoutPanel.SuspendLayout();
@@ -208,7 +209,7 @@ namespace Urldrop
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
                                     this.alwaysOnTopToolStripMenuItem,
                                     this.sortedListToolStripMenuItem,
-                                    this.multiselectToolStripMenuItem});
+                                    this.selectionmodeToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "&Options";
@@ -217,45 +218,14 @@ namespace Urldrop
             // alwaysOnTopToolStripMenuItem
             // 
             this.alwaysOnTopToolStripMenuItem.Name = "alwaysOnTopToolStripMenuItem";
-            this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.alwaysOnTopToolStripMenuItem.Text = "&Always on top";
             // 
             // sortedListToolStripMenuItem
             // 
             this.sortedListToolStripMenuItem.Name = "sortedListToolStripMenuItem";
-            this.sortedListToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.sortedListToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.sortedListToolStripMenuItem.Text = "&Sorted list";
-            // 
-            // multiselectToolStripMenuItem
-            // 
-            this.multiselectToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                                    this.oneclickToolStripMenuItem,
-                                    this.extendedToolStripMenuItem,
-                                    this.noneToolStripMenuItem});
-            this.multiselectToolStripMenuItem.Name = "multiselectToolStripMenuItem";
-            this.multiselectToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.multiselectToolStripMenuItem.Text = "&Multiselect";
-            this.multiselectToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.OnMultiselectToolStripMenuItemDropDownItemClicked);
-            // 
-            // oneclickToolStripMenuItem
-            // 
-            this.oneclickToolStripMenuItem.Checked = true;
-            this.oneclickToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.oneclickToolStripMenuItem.Name = "oneclickToolStripMenuItem";
-            this.oneclickToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
-            this.oneclickToolStripMenuItem.Text = "&One-click";
-            // 
-            // extendedToolStripMenuItem
-            // 
-            this.extendedToolStripMenuItem.Name = "extendedToolStripMenuItem";
-            this.extendedToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
-            this.extendedToolStripMenuItem.Text = "&Extended";
-            // 
-            // noneToolStripMenuItem
-            // 
-            this.noneToolStripMenuItem.Name = "noneToolStripMenuItem";
-            this.noneToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
-            this.noneToolStripMenuItem.Text = "&None";
             // 
             // helpToolStripMenuItem
             // 
@@ -366,6 +336,7 @@ namespace Urldrop
             this.urlListBox.ContextMenuStrip = this.urlListBoxContextMenuStrip;
             this.urlListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.urlListBox.FormattingEnabled = true;
+            this.urlListBox.HorizontalScrollbar = true;
             this.urlListBox.Location = new System.Drawing.Point(3, 28);
             this.urlListBox.Name = "urlListBox";
             this.urlListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
@@ -432,6 +403,44 @@ namespace Urldrop
             this.saveFileDialog.Filter = "TXT Files (*.txt)|*.txt|All files (*.*)|*.*";
             this.saveFileDialog.Title = "Save file";
             // 
+            // selectionmodeToolStripMenuItem
+            // 
+            this.selectionmodeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                                    this.noneToolStripMenuItem,
+                                    this.oneToolStripMenuItem,
+                                    this.multiSimpleToolStripMenuItem,
+                                    this.multiExtendedToolStripMenuItem});
+            this.selectionmodeToolStripMenuItem.Name = "selectionmodeToolStripMenuItem";
+            this.selectionmodeToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.selectionmodeToolStripMenuItem.Text = "Selection &mode";
+            this.selectionmodeToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.OnSelectionModeToolStripMenuItemDropDownItemClicked);
+            // 
+            // noneToolStripMenuItem
+            // 
+            this.noneToolStripMenuItem.Name = "noneToolStripMenuItem";
+            this.noneToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.noneToolStripMenuItem.Text = "&None";
+            // 
+            // oneToolStripMenuItem
+            // 
+            this.oneToolStripMenuItem.Name = "oneToolStripMenuItem";
+            this.oneToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.oneToolStripMenuItem.Text = "&One";
+            // 
+            // multiSimpleToolStripMenuItem
+            // 
+            this.multiSimpleToolStripMenuItem.Name = "multiSimpleToolStripMenuItem";
+            this.multiSimpleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.multiSimpleToolStripMenuItem.Text = "&Multi&Simple";
+            // 
+            // multiExtendedToolStripMenuItem
+            // 
+            this.multiExtendedToolStripMenuItem.Checked = true;
+            this.multiExtendedToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.multiExtendedToolStripMenuItem.Name = "multiExtendedToolStripMenuItem";
+            this.multiExtendedToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.multiExtendedToolStripMenuItem.Text = "Multi&Extended";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -453,13 +462,14 @@ namespace Urldrop
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+        private System.Windows.Forms.ToolStripMenuItem multiExtendedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem multiSimpleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem oneToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem selectionmodeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem1;
         private System.Windows.Forms.ContextMenuStrip urlListBoxContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem noneToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem extendedToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem oneclickToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem multiselectToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.Button deleteButton;

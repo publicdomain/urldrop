@@ -174,7 +174,7 @@ namespace Urldrop
         private void OnOptionsToolStripMenuItemDropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             // Prevent multiselect checking
-            if (e.ClickedItem == this.multiselectToolStripMenuItem)
+            if (e.ClickedItem == this.selectionmodeToolStripMenuItem)
             {
                 // Halt flow
                 return;
@@ -256,13 +256,48 @@ namespace Urldrop
         }
 
         /// <summary>
-        /// Hndles the multiselect tool strip menu item drop down item clicked.
+        /// Hndles the selection mode tool strip menu item drop down item clicked event.
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
-        private void OnMultiselectToolStripMenuItemDropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void OnSelectionModeToolStripMenuItemDropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            // TODO Add code
+            // Uncheck all items
+            foreach (ToolStripMenuItem item in this.selectionmodeToolStripMenuItem.DropDownItems)
+            {
+                // Uncheck
+                item.Checked = false;
+            }
+
+            // Set tool strip menu item
+            ToolStripMenuItem toolStripMenuItem = (ToolStripMenuItem)e.ClickedItem;
+
+            // Toggle checked
+            toolStripMenuItem.Checked = !toolStripMenuItem.Checked;
+
+            // Set selection mode
+            switch (toolStripMenuItem.Text.Replace("&", string.Empty))
+            {
+                // None
+                case "None":
+                    this.urlListBox.SelectionMode = SelectionMode.None;
+                    break;
+
+                // One
+                case "One":
+                    this.urlListBox.SelectionMode = SelectionMode.One;
+                    break;
+
+                // MultiSimple
+                case "MultiSimple":
+                    this.urlListBox.SelectionMode = SelectionMode.MultiSimple;
+                    break;
+
+                // MultiExtended
+                case "MultiExtended":
+                    this.urlListBox.SelectionMode = SelectionMode.MultiSimple;
+                    break;
+            }
         }
 
         /// <summary>
