@@ -13,6 +13,7 @@ namespace Urldrop
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using System.Text;
     using System.Windows.Forms;
     using HtmlAgilityPack;
     using Microsoft.VisualBasic;
@@ -158,7 +159,24 @@ namespace Urldrop
         /// <param name="e">Event arguments.</param>
         private void OnCopyToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Prevent drawing
+            this.urlListBox.BeginUpdate();
+
+            // Copy string bulder
+            var copyStringBuilder = new StringBuilder();
+
+            // Edit selected items
+            for (int i = 0; i < this.urlListBox.SelectedIndices.Count; i++)
+            {
+                // Add item line
+                copyStringBuilder.AppendLine(this.urlListBox.Items[this.urlListBox.SelectedIndices[i]].ToString());
+            }
+
+            // Copy to clipboard
+            Clipboard.SetText(copyStringBuilder.ToString().Trim());
+
+            // Resume drawing
+            this.urlListBox.EndUpdate();
         }
 
         /// <summary>
