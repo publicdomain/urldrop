@@ -68,7 +68,11 @@ namespace Urldrop
         /// <param name="e">Event arguments.</param>
         private void OnNewToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO add code
+            // Clear URL list
+            this.urlListBox.Items.Clear();
+
+            // Reset count
+            this.countToolStripStatusLabel.Text = "0";
         }
 
         /// <summary>
@@ -359,6 +363,9 @@ namespace Urldrop
                 // Inform user
                 MessageBox.Show($"Could not finish operation:{Environment.NewLine}{ex.Message}", "Populate by file(s) error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            // Update count
+            this.countToolStripStatusLabel.Text = this.urlListBox.Items.Count.ToString();
         }
 
         /// <summary>
