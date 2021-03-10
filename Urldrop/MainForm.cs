@@ -15,6 +15,7 @@ namespace Urldrop
     using System.Reflection;
     using System.Windows.Forms;
     using HtmlAgilityPack;
+    using Microsoft.VisualBasic;
 
     /// <summary>
     /// Description of MainForm.
@@ -246,7 +247,25 @@ namespace Urldrop
         /// <param name="e">Event arguments.</param>
         private void OnEditButtonClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Prevent drawing
+            this.urlListBox.BeginUpdate();
+
+            // Edit selected items
+            for (int i = 0; i < this.urlListBox.SelectedIndices.Count; i++)
+            {
+                // Edit item
+                string itemText = Interaction.InputBox("Please edit item text to update:", "Edit", this.urlListBox.Items[this.urlListBox.SelectedIndices[i]].ToString());
+
+                // Check length
+                if (itemText.Length > 0)
+                {
+                    // Edit item text
+                    this.urlListBox.Items[this.urlListBox.SelectedIndices[i]] = itemText;
+                }
+            }
+
+            // Resume drawing
+            this.urlListBox.EndUpdate();
         }
 
         /// <summary>
