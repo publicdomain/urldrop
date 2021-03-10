@@ -149,7 +149,30 @@ namespace Urldrop
         /// <param name="e">Event arguments.</param>
         private void OnCutToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Prevent drawing
+            this.urlListBox.BeginUpdate();
+
+            // Cut list
+            var cutList = new List<string>();
+
+            // Remove selected items
+            for (int i = this.urlListBox.SelectedIndices.Count - 1; i >= 0; i--)
+            {
+                // Insert into list 
+                cutList.Insert(0, this.urlListBox.Items[this.urlListBox.SelectedIndices[i]].ToString());
+
+                // Remove last selected item
+                this.urlListBox.Items.RemoveAt(this.urlListBox.SelectedIndices[i]);
+            }
+
+            // Copy to clipboard
+            Clipboard.SetText(string.Join(Environment.NewLine, cutList));
+
+            // Resume drawing
+            this.urlListBox.EndUpdate();
+
+            // Update count
+            this.countToolStripStatusLabel.Text = this.urlListBox.Items.Count.ToString();
         }
 
         /// <summary>
