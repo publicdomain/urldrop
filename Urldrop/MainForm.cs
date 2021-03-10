@@ -209,7 +209,31 @@ namespace Urldrop
         /// <param name="e">Event arguments.</param>
         private void OnPasteToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Prevent drawing
+            this.urlListBox.BeginUpdate();
+
+            // Split clipboard lines (discarding empty ones)
+            string[] lines = Clipboard.GetText().Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+            // Iterate lines
+            for (int i = 0; i < lines.Length; i++)
+            {
+                // Set trimmed line
+                string trimmedLine = lines[i].Trim();
+
+                // Validate
+                if (this.ValidateUri(trimmedLine))
+                {
+                    // Add to URL list
+                    this.urlListBox.Items.Add(trimmedLine);
+                }
+            }
+
+            // Resume drawing
+            this.urlListBox.EndUpdate();
+
+            // Update count
+            this.countToolStripStatusLabel.Text = this.urlListBox.Items.Count.ToString();
         }
 
         /// <summary>
