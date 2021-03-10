@@ -256,7 +256,21 @@ namespace Urldrop
         /// <param name="e">Event arguments.</param>
         private void OnDeleteButtonClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Prevent drawing
+            this.urlListBox.BeginUpdate();
+
+            // Remove selected items
+            for (int i = this.urlListBox.SelectedIndices.Count - 1; i >= 0; i--)
+            {
+                // last selected item
+                this.urlListBox.Items.RemoveAt(this.urlListBox.SelectedIndices[i]);
+            }
+
+            // Resume drawing
+            this.urlListBox.EndUpdate();
+
+            // Update count
+            this.countToolStripStatusLabel.Text = this.urlListBox.Items.Count.ToString();
         }
 
         /// <summary>
